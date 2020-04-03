@@ -2,11 +2,31 @@
 
 <head>
 
- <title>Thivin Anandh - ParMooN Results</title>
+ <title>Thivin - ParMooN Results</title>
  
  <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
 </head>
 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 800px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
 
 <script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
  <script>
@@ -16,11 +36,44 @@
   </script>
 
 <body >
- <p> check </p>
-    <video id="my-video-stream"  controls> 
-        <source src="../videos/re_50_fine_hd.webm" type="video/webm">
-        <track label="English" kind="subtitles" src="sub.vtt" srclang="en">
+  
+  
+      <h1 style="text-align: center;"><strong>FISH TANK SLOSHING</strong></h1>
+  
+  <div class="row">
+  <div class="column">
+    
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><strong>Scenario 1 :&nbsp;&nbsp; ( Reynolds Number =&nbsp; 10 )&nbsp; </strong></h2>
+<p><strong>VELOCITY and MESH PARAMETERS&nbsp; :</strong></p>
+<p>N_DOF Mesh : 729<br />N_Cells : 512<br />Dof velocity : 14739<br />Dof pressure : 729<br />Dof all : 15468</p>
+<p><strong>FREE SURFACE and FREE SLIP PARAMETERS :</strong></p>
+<p>&nbsp;Free Surface Nodes : 32&nbsp;&nbsp; ; &nbsp;FreeSlip Nodes :&nbsp; 161</p>
+<p><strong>FE DETAILS :<br /></strong></p>
+<p>FE Element Pair used&nbsp;&nbsp; :&nbsp; Q2/Q1&nbsp; ( HexaHeadral Conforming )</p>
+<p>Time Stepping Scheme :&nbsp; Fractional Step Theta Scheme</p>
+<p>Time Step&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 0.1 Seconds&nbsp;&nbsp;&nbsp; ( t = 0 to 10 seconds )</p>
+<p><strong>OTHER DETAILS :</strong></p>
+<p>Solver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : INtel MKL Pardiso</p>
+<p>FE Solver &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <a href="https://cmg.cds.iisc.ac.in/parmoon/">ParMooN</a></p>
+<p>&nbsp;</p>
+
+
+     </div>
+  <div class="column">
+  <p> </p>   <p> </p>   <p> </p>  <p> </p>  <p> </p> <p> </p>   <p> </p>   <p> </p>  <p> </p>  <p>     </p>
+  
+
+
+<p> . </p>
+
+    <video id="my-video-stream" width="900" height="480" controls> 
+        <source src="../videos/re_10_t02_hd.webm" type="video/webm">
     </video>
+      </div>
+</div>
     
 
 </body>
