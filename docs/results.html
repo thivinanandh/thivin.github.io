@@ -17,10 +17,9 @@
   float: left;
   width: 50%;
   padding: 10px;
-  height: 800px; /* Should be removed. Only for demonstration */
+  height: 600px; /* Should be removed. Only for demonstration */
 }
 
- 
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -40,14 +39,15 @@
   
   
       <h1 style="text-align: center;"><strong>FISH TANK SLOSHING</strong></h1>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Free surface Flow of an incompressible fluid in a tank is resolved by solving imcompressible Navier Stokes Equation using ALE-Based FEM in ParMooN. </p>
+  
+  <h2><span style="color: #0000ff;"><strong>Scenario 1:</strong></span></h2>
+
   
   <div class="row">
   <div class="column">
-    
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2><strong>Scenario 1 :&nbsp;&nbsp; ( Reynolds Number =&nbsp; 10 )&nbsp; </strong></h2>
+<h3><strong><span style="color: #339966;">Reynolds Number =&nbsp; 10 - Coarse Mesh</span><br /></strong></h3>
 <p><strong>VELOCITY and MESH PARAMETERS&nbsp; :</strong></p>
 <p>N_DOF Mesh : 729<br />N_Cells : 512<br />Dof velocity : 14739<br />Dof pressure : 729<br />Dof all : 15468</p>
 <p><strong>FREE SURFACE and FREE SLIP PARAMETERS :</strong></p>
@@ -64,17 +64,116 @@
 
      </div>
   <div class="column">
-  <p> </p>   <p> </p>   <p> </p>  <p> </p>  <p> </p> <p> </p>   <p> </p>   <p> </p>  <p> </p>  <p>     </p>
-  
-
-
 <p> . </p>
 
-    <video id="my-video-stream" width="900" height="480" controls > 
+    <video id="my-video-stream" width="900" height="480" controls> 
         <source src="videos/re_10_t02_hd.webm" type="video/webm">
     </video>
       </div>
 </div>
+
+
+  <div class="row">
+  <div class="column">
+    
+<h3><strong><span style="color: #339966;">Reynolds Number =&nbsp; 50 - Fine Mesh</span><br /></strong></h3>
+<p><strong>VELOCITY and MESH PARAMETERS&nbsp; :</strong></p>
+<p>N_DOF Mesh : 4913<br />N_Cells : 4096<br />Dof velocity : 107811<br />Dof pressure : 4913<br />Dof all : 112724</p>
+<p><strong>FREE SURFACE and FREE SLIP PARAMETERS :</strong></p>
+<p>&nbsp;Free Surface Nodes : 64 &nbsp; ; &nbsp;FreeSlip Nodes :&nbsp; 705</p>
+<p><strong>FE DETAILS :<br /></strong></p>
+<p>FE Element Pair used&nbsp;&nbsp; :&nbsp; Q2/Q1&nbsp; ( HexaHeadral Conforming )</p>
+<p>Time Stepping Scheme :&nbsp; Fractional Step Theta Scheme</p>
+<p>Time Step&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 0.1 Seconds&nbsp;&nbsp;&nbsp; ( t = 0 to 2 seconds )</p>
+<p><strong>OTHER DETAILS :</strong></p>
+<p>Solver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : INtel MKL Pardiso</p>
+<p>FE Solver &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <a href="https://cmg.cds.iisc.ac.in/parmoon/">ParMooN</a></p>
+<p><strong>&nbsp;Comment : </strong>As seen from Simulation , Due to High reynolds number, the mesh on the surface started collapsing with one another after some time steps . The Collapse of the vertices has to be taken care of by some other mesh optimisation method.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+     </div>
+  <div class="column">
+<p> . </p>
+
+    <video id="my-video-stream" width="900" height="480" controls> 
+        <source src="videos/re_50_fine_hd.webm" type="video/webm">
+    </video>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+  <h2><span style="color: #0000ff;"><strong>Scenario 2:</strong></span></h2>
+  <div class="row">
+  <div class="column">
+
+<h3><strong><span style="color: #339966;">Reynolds Number =&nbsp; 10 - Coarse Mesh</span><br /></strong></h3>
+<p><strong>VELOCITY and MESH PARAMETERS&nbsp; :</strong></p>
+<p>N_DOF Mesh : 729<br />N_Cells : 512<br />Dof velocity : 14739<br />Dof pressure : 729<br />Dof all : 15468</p>
+<p><strong>FREE SURFACE and FREE SLIP PARAMETERS :</strong></p>
+<p>&nbsp;Free Surface Nodes : 32&nbsp;&nbsp; ; &nbsp;FreeSlip Nodes :&nbsp; 161</p>
+<p><strong>FE DETAILS :<br /></strong></p>
+<p>FE Element Pair used&nbsp;&nbsp; :&nbsp; Q2/Q1&nbsp; ( HexaHeadral Conforming )</p>
+<p>Time Stepping Scheme :&nbsp; Fractional Step Theta Scheme</p>
+<p>Time Step&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 0.1 Seconds&nbsp;&nbsp;&nbsp; ( t = 0 to 20 seconds )</p>
+<p><strong>OTHER DETAILS :</strong></p>
+<p>Solver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : INtel MKL Pardiso</p>
+<p>FE Solver &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <a href="https://cmg.cds.iisc.ac.in/parmoon/">ParMooN</a></p>
+<p>&nbsp;</p>
+
+
+     </div>
+  <div class="column">
+<p> . </p>
+
+    <video id="my-video-stream" width="900" height="480" controls> 
+        <source src="videos/re_10_c_hd.webm" type="video/webm">
+    </video>
+      </div>
+</div>
+
+
+
+  <div class="row">
+  <div class="column">
+    
+<h3><strong><span style="color: #339966;">Reynolds Number =&nbsp; 20 - Fine Mesh</span><br /></strong></h3>
+<p><strong>VELOCITY and MESH PARAMETERS&nbsp; :</strong></p>
+<p>N_DOF Mesh : 4913<br />N_Cells : 4096<br />Dof velocity : 107811<br />Dof pressure : 4913<br />Dof all : 112724</p>
+<p><strong>FREE SURFACE and FREE SLIP PARAMETERS :</strong></p>
+<p>&nbsp;Free Surface Nodes : 64 &nbsp; ; &nbsp;FreeSlip Nodes :&nbsp; 705</p>
+<p><strong>FE DETAILS :<br /></strong></p>
+<p>FE Element Pair used&nbsp;&nbsp; :&nbsp; Q2/Q1&nbsp; ( HexaHeadral Conforming )</p>
+<p>Time Stepping Scheme :&nbsp; Fractional Step Theta Scheme</p>
+<p>Time Step&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; 0.1 Seconds&nbsp;&nbsp;&nbsp; ( t = 0 to 20 seconds )</p>
+<p><strong>OTHER DETAILS :</strong></p>
+<p>Solver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : INtel MKL Pardiso</p>
+<p>FE Solver &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <a href="https://cmg.cds.iisc.ac.in/parmoon/">ParMooN</a></p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+     </div>
+  <div class="column">
+<p> . </p>
+
+    <video id="my-video-stream" width="900" height="480" controls> 
+        <source src="videos/re_20_fine_c_hd.webm" type="video/webm">
+    </video>
+      </div>
+</div>
+
+
+    
+    
     
 
 </body>
