@@ -1,0 +1,508 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .main-container
+        {
+            display: inline;
+        }
+        .input-container {
+            width: 40%;
+            background-color: rgb(36, 35, 35);
+            margin: 20px;
+            padding-left: 10px;
+            padding-top: 30px;
+            padding: 30px;
+            height: 900px;
+        }
+
+        .result-container {
+            width: 40%;
+            background-color: rgb(52, 53, 49);
+            margin: 20px;
+            padding-left: 10px;
+            padding-top: 30px;
+            padding: 30px;
+            height: 900px;
+        }
+
+        .input-title-text
+        {
+            color: blue;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 18px;
+        }
+
+        .input-title-main-text
+        {
+            color: rgb(231, 0, 31);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+        }
+        
+
+        .heading {
+            text-align: center;
+        }
+
+        .titletag-containter
+        {
+          width: 100%;
+          text-align: center;
+          height: 100px;   
+          border: white;
+          color: grey;
+          background-color: rgb(26, 24, 24);
+        }
+
+        .titletag{
+            color:green;
+            font-weight: bolder;
+            text-align: center;
+            font-size: xx-large;
+            font-family: Georgia;
+            text-transform: uppercase;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .container {
+            width: auto;
+            padding-left: 50px;
+            padding: 10px;
+        }
+
+        .result-container {
+            width: 50%;
+            height: 75%;
+            border: 1px solid black;
+        }
+
+        .body 
+        {
+            background-color: white;
+        }
+
+        .inputboxlabel
+        {
+            color:white;
+            font-size: 18px;
+        }
+        
+        .inputbox
+        {
+            color:brown;
+            font-weight: bolder;
+            font-size: 16px;
+            padding: 5px;
+            margin: 5px;
+            width: 150px;
+        }
+
+        .inputbox-result
+        {
+            color:rgb(72, 49, 201);
+            font-weight: bolder;
+            font-size: 16px;
+            padding: 5px;
+            margin: 5px;
+            width: 150px;
+        }
+
+        .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 25px;
+        background: #fffbfb;
+        outline: none;
+        opacity: 0.7;
+
+        margin: 10px;
+        }
+
+        .slider:hover {
+        opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: rgb(73, 122, 228);
+        cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: rgb(93, 58, 221);
+        cursor: pointer;
+        }
+    </style>
+
+    <script>
+       function updateSlider(val,id)
+        {
+            document.getElementById(id).value = val;
+            updateResult();
+        }
+
+       
+        function updateUnits()
+        {
+            var unit = document.getElementById('len-unit').value;
+
+            var x = document.getElementById('xdim').value;
+            var y = document.getElementById('ydim').value;
+            var z = document.getElementById('zdim').value;
+            var g = document.getElementById('g').value;
+
+            var lenscale = document.getElementById('lengthscale').value;
+
+
+            if (lenscale > 0.0000001 )
+            {
+                var x_nd  = x/lenscale;
+                var y_nd  = y/lenscale;
+                var z_nd  = z/lenscale;   
+            }
+            else
+            {
+                document.getElementById('xdim-nd').value = 0.0;
+                document.getElementById('ydim-nd').value = 0.0;
+                document.getElementById('zdim-nd').value = 0.0;
+                return 0;
+            }
+            switch(unit)
+            {
+                case "m":
+                {
+                    document.getElementById('xdim-nd').value = x_nd;
+                    document.getElementById('ydim-nd').value = y_nd;
+                    document.getElementById('zdim-nd').value = z_nd;  
+                    break;
+                }
+
+                case "mm" :
+                {
+                    document.getElementById('xdim-nd').value = x_nd*1000;
+                    document.getElementById('ydim-nd').value = y_nd*1000;
+                    document.getElementById('zdim-nd').value = z_nd*1000;  
+                    break;
+                }
+
+                case "cm" :
+                {
+                    document.getElementById('xdim-nd').value = x_nd*100;
+                    document.getElementById('ydim-nd').value = y_nd*100;
+                    document.getElementById('zdim-nd').value = z_nd*100;  
+                    break;
+                }
+
+                default:
+                {
+                    document.getElementById('xdim-nd').value = x_nd;
+                    document.getElementById('ydim-nd').value = y_nd;
+                    document.getElementById('zdim-nd').value = z_nd;  
+                    break;
+                    
+                }
+
+
+            }
+
+
+
+        }
+
+        function updateResult()
+        {
+            
+            var x = document.getElementById('xdim').value;
+            var y = document.getElementById('ydim').value;
+            var z = document.getElementById('zdim').value;
+            
+            var g = document.getElementById('g').value;
+            var eps =  document.getElementById('epsilon').value;
+
+            var visc    = document.getElementById('viscosity').value;
+            var density = document.getElementById('density').value;
+
+
+            var lenscale = document.getElementById('lengthscale').value;
+            
+            var velscale = document.getElementById('velocityscale').value;
+            
+            if (lenscale > 0.0000001 )
+            {
+                document.getElementById('xdim-nd').value = x/lenscale;
+                document.getElementById('ydim-nd').value = y/lenscale;
+                document.getElementById('zdim-nd').value = z/lenscale;
+                updateUnits();   
+
+                document.getElementById('timescale').value = velscale/lenscale;
+
+                document.getElementById('pressurescale').value = 1.0 / (density * velscale * velscale);   
+            }
+            else
+            {
+                document.getElementById('xdim-nd').value = 0.0;
+                document.getElementById('ydim-nd').value = 0.0;
+                document.getElementById('zdim-nd').value = 0.0;     
+                updateUnits(); 
+
+                document.getElementById('timescale').value = 0.0;
+                document.getElementById('pressurescale').value = 0.0;
+            }
+
+
+            if ( visc > 0.000000000001)
+            {
+                var re = density * velscale * lenscale / ( visc) ;
+                document.getElementById('reynoldsno').value = re ;
+            }
+            else
+            {
+                document.getElementById('reynoldsno').value = 0;
+            }
+
+            var fr = velscale * velscale / (lenscale * g) ;
+
+            document.getElementById('froudeno').value =fr;
+
+            var fric =  1 / (eps * density * velscale) ;
+
+            document.getElementById('friction').value = fric;
+            
+    
+        }
+
+    </script>
+</head>
+
+<body class="body">
+    <div class="titletag-containter row">
+        <div class= "titletag col-sm-12">
+            <p> DIMENSIONLESS PARAMETERS</p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="input-container col-sm-5">
+
+            <div class="container row">
+                <div class="input-title-main-text col-sm-10">
+                    <p> INPUT VALUES </p>
+                </div>
+            </div>
+            
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> CO-ORDINATE VALUES </p>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="xdim">X Dimension : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="xdim" value="1.0" name="XDimensio\n" onchange="updateResult();" input>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="ydim">Y Dimension : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="ydim" value="1.0" name="YDimension" onchange="updateResult();"input>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="zdim">Z Dimension : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="zdim" value="1.0" name="ZDimension" onchange="updateResult();"  input>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> FLUID PARAMETERS </p>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="viscosity">Dynamic Viscosity : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="viscosity" value="0.0008693" name="viscosity" onchange="updateResult();" input>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="density">Density: </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="density"  value="1000" name="density" onchange="updateResult();" input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="g">g : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="g" value="9.81" name="g" onchange="updateResult();"input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="epsilon">epsilon : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="epsilon" value="0.01" name="epsilon" onchange="updateResult();"input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> SCALING PARAMETERS </p>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="lengthscale">Length-Scale : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="lengthscale" value="1.0" name="lengthscale" onchange="updateResult();" input>
+                </div>
+                <div class="col-sm-4">
+                    <input type="range" min="1" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'lengthscale');" input>
+                </div>
+            </div>
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="velocityscale">Velocity-Scale : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="velocityscale" value="1.0" name="velocityscale"  onchange="updateResult();" input>
+                </div>
+                <div class="col-sm-4">
+                    <input type="range" min="1" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'velocityscale');" >
+                </div>
+            </div>
+        </div>
+        
+
+
+        <!-- Answer COntainer  -->
+        <div class="result-container col-sm-5">
+
+            <div class="container row">
+                <div class="input-title-main-text col-sm-10">
+                    <p> INPUT VALUES </p>
+                </div>
+            </div>
+            
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> CO-ORDINATE VALUES </p>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-2">
+                    <label class="inputboxlabel" for="xdim"> Non Dim Co-ords: </label>
+                </div>
+                <div class="col-sm-3">
+                    <input class="inputbox" type="text" id="xdim-nd" name="XDimension-nd"  readonly input>
+                </div>
+                <div class="col-sm-3">
+                    <input class="inputbox" type="text" id="ydim-nd" name="YDimension-nd"  readonly input>
+                </div>
+                <div class="col-sm-3">
+                    <input class="inputbox" type="text" id="zdim-nd" name="ZDimension-nd"  readonly input>
+                </div>
+                <div class="col-sm-1">
+                    <select id="len-unit" onchange="updateUnits()">
+                        <option value="m">m</option>
+                        <option value="cm">cm</option>
+                        <option value="mm">mm</option>
+                      </select>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> SCALLING FACTORS </p>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="reynoldsno">Time Scalling : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="timescale"  name="timescale" readonly input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="reynoldsno">Pressure-Scaling : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="pressurescale"  name="pressurescale" readonly input>
+                </div>
+            </div>
+
+
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> NON DIMENSIONAL NUMBERS </p>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="reynoldsno">Reynolds-No : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="reynoldsno"  name="reynoldsno" readonly input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="froudeno">Froude-No : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="froudeno"  name="froudeno" readonly input>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-4">
+                    <label class="inputboxlabel" for="friction">SlipwithFriction : </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="friction"  name="friction" readonly input>
+                </div>
+            </div>
+
+
+            
+
+        </div>
+    </div>
+</body>
+
+</html>
