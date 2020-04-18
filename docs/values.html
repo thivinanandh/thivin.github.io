@@ -167,9 +167,9 @@
 
             if (lenscale > 0.000000001 )
             {
-                var x_nd  = x*lenscale;
-                var y_nd  = y*lenscale;
-                var z_nd  = z*lenscale;   
+                var x_nd  = x/lenscale;
+                var y_nd  = y/lenscale;
+                var z_nd  = z/lenscale;   
             }
             else
             {
@@ -240,9 +240,9 @@
             
             if (lenscale > 0.0000001 )
             {
-                document.getElementById('xdim-nd').value = x*lenscale;
-                document.getElementById('ydim-nd').value = y*lenscale;
-                document.getElementById('zdim-nd').value = z*lenscale;
+                document.getElementById('xdim-nd').value = x/lenscale;
+                document.getElementById('ydim-nd').value = y/lenscale;
+                document.getElementById('zdim-nd').value = z/lenscale;
                 updateUnits();   
 
                 document.getElementById('timescale').value = velscale/lenscale;
