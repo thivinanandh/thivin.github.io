@@ -195,8 +195,7 @@ function initialiser()
 
     b = gameObject.checkGameOver();
 
-    gameObject.gameArray[0][0] = 1024;
-    gameObject.gameArray[0][1] = 1024;
+    //gameObject.gameArray[0][0] = 1024;
 
 
 
