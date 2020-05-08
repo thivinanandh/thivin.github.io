@@ -131,10 +131,10 @@ function setup()
 
   // Score Card 
   paragraph = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.15*height));
 
   paragraph2 = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.15*height));
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.05*height));
   
 
   // Score Card
@@ -245,7 +245,7 @@ function touchEnded() {
    }
 
 
-   paragraph2.html(" X1 : " +  X1 + " X2 : " + X2 + " Y1 : " + Y1 + " Y2 : "+ Y2);
+   //paragraph2.html(" X1 : " +  X1 + " X2 : " + X2 + " Y1 : " + Y1 + " Y2 : "+ Y2);
    console.log(" X1 : " , X1 ," X2: " , X2, " Y1 : " , Y1 , " Y2 : " , Y2  );
 
 
