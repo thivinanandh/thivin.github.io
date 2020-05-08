@@ -130,11 +130,11 @@ function setup()
   button.mousePressed(reload);
 
   // Score Card 
-  paragraph = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.35*height));
+  //paragraph = createP(' ');
+  //paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.35*height));
 
-  paragraph2 = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
+  //paragraph2 = createP(' ');
+  //paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
   
 
   // Score Card
@@ -704,7 +704,7 @@ function gameClass() {
 
   this.updateScore = function ()
   {
-    paragraph.html( "Number of Moves  : " + nMoves  );
+   // paragraph.html( "Number of Moves  : " + nMoves  );
   };
 
 
