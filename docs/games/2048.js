@@ -131,10 +131,10 @@ function setup()
 
   // Score Card 
   paragraph = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.15*height));
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.35*height));
 
   paragraph2 = createP(' ');
-  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.05*height));
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
   
 
   // Score Card
