@@ -22,6 +22,11 @@ let colors = [];
 
 var Score = 0;
 
+let X1 =  0 ;
+let X2 = 0;
+let Y1 = 0;
+let Y2 = 0;
+
 
 
 
@@ -127,6 +132,9 @@ function setup()
   // Score Card 
   paragraph = createP(' ');
   paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
+
+  paragraph2 = createP(' ');
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.15*height));
   
 
   // Score Card
@@ -195,6 +203,56 @@ function keyPressed()
   
 }
 
+function touchStarted() { 
+  X1 = mouseX; 
+  Y1 = mouseY; 
+} 
+
+
+function touchEnded() { 
+  X2 = mouseX ; 
+  Y2 = mouseY; 
+
+   if(Y2 - Y1  >  120 )
+   {
+    gameObject.moveDirection("down");
+    console.log("Swipwe Down ");
+
+   }
+
+   else if(Y1 - Y2  >  120 ) 
+   {
+    gameObject.moveDirection("up");
+    console.log("Swipwe up ");
+
+   }
+
+
+   else if(X1 - X2  >  120 ) 
+   {
+    gameObject.moveDirection("left");
+    console.log("Swipwe left ");
+
+
+   }
+
+   else if(X2 - X1  >  120 )
+   {
+    gameObject.moveDirection("right");
+    console.log("Swipwe right ");
+
+
+   }
+
+
+   paragraph2.html(" X1 : " +  X1 + " X2 : " + X2 + " Y1 : " + Y1 + " Y2 : "+ Y2);
+   console.log(" X1 : " , X1 ," X2: " , X2, " Y1 : " , Y1 , " Y2 : " , Y2  );
+
+
+} 
+
+
+
 
 function initialiser()
 {
@@ -204,9 +262,6 @@ function initialiser()
 
     // gameObject.gameArray[0][0] = 1024;
     // gameObject.gameArray[0][1] = 1024;
-
-
-
 
 }
 
@@ -219,6 +274,7 @@ function reload()
 		
 		
 }
+
 
 function gameClass() {
   // Main Array of the game
