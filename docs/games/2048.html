@@ -10,8 +10,48 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
       <script src="2048.js"></script>
 
+      <style>
+        html, body {
+          height: 100%;
+        }
+
+        body {
+          margin: 0;
+          /* display: flex; */
+
+          /* This centers our sketch horizontally. */
+          /* justify-content: center; */
+
+          /* This centers our sketch vertically. */
+          /* align-items: center; */
+      }
+
+      .div1 {
+        display: block;
+        height: 10%;
+        justify-content: center; 
+
+        }
+
+        .div2 {
+          display: flex; 
+        height: 100%;
+        justify-content: center; 
+        /* align-items: center; */
+
+        }
+
+      </style>
 
 
       </head>
-    <body></body>
+    <body color="black">
+      <div class="div1">
+          <h2 style="text-align: center;"><strong> 2048 Game </strong></h2>
+      </div>
+
+      <div class="div2"  id="div-2">
+
+      </div>
+    </body>
 </html>
