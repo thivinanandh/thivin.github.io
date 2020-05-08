@@ -87,10 +87,16 @@ function colorPicker(value)
 }
 
 
-function setup() {
+function setup() 
+{
   strokeWeight(4);
   stroke(255, 204, 0);
-  createCanvas(500, 500);
+  translate(200, 200, 100);
+  var cnv = createCanvas(500, 500);
+  // var x = (windowWidth - width) / 2;
+  // var y = (windowHeight - height) / 2;
+  // cnv.position(x, y);
+  cnv.parent('div-2');
 
   gameObject = new gameClass();
   //frameRate(60);
@@ -115,12 +121,12 @@ function setup() {
 
   // Reset Button
   var button = createButton("reset");
-	button.position(200,550);
+	button.position((windowWidth - width )/2 ,(windowHeight - 0.3*height));
   button.mousePressed(reload);
 
   // Score Card 
   paragraph = createP(' ');
-  paragraph.position(20,550);
+  paragraph.position((windowWidth  - width)/2 ,(windowHeight - 0.25*height));
   
 
   // Score Card
@@ -164,11 +170,12 @@ function draw() {
 
   if(maxElement == GameMaxTile) gameObject.displayGameWin();
 
-
-
-
   // create a tile at random position
 
+}
+
+function windowResized() {
+  centerCanvas();
 }
 
 function keyPressed()
@@ -195,7 +202,8 @@ function initialiser()
 
     b = gameObject.checkGameOver();
 
-    //gameObject.gameArray[0][0] = 1024;
+    // gameObject.gameArray[0][0] = 1024;
+    // gameObject.gameArray[0][1] = 1024;
 
 
 
@@ -524,7 +532,6 @@ function gameClass() {
 
         break;
     }
-    nMoves++;
     // Update the Empty Queue
     this.updateEmpty();
 
@@ -537,6 +544,7 @@ function gameClass() {
     {
       // console.log(" MOVE MADE - calling insert new nu");
       this.insertNewNumber();
+      nMoves++;
     }
 
     
