@@ -97,14 +97,27 @@ function setup()
   strokeWeight(4);
   stroke(255, 204, 0);
   translate(200, 200, 100);
-  var cnv = createCanvas(500, 500);
-  // var x = (windowWidth - width) / 2;
-  // var y = (windowHeight - height) / 2;
+  var cnv;
+  var x = windowWidth ;
+   var y = windowHeight ;
+  
+  var isMobile = false;
+
+  if ( y > 0.8*x )
+    isMobile = true;
+
+
+    cnv = createCanvas(500, 500);
+
+
+
   // cnv.position(x, y);
   cnv.parent('div-2');
 
+  let amt =0;
+
   gameObject = new gameClass();
-  //frameRate(60);
+ frameRate(60);
   fill(255,229,164);
 
   // draw Grid lines
@@ -125,9 +138,7 @@ function setup()
   gameObject.fillZeros();
 
   // Reset Button
-  var button = createButton("reset");
-	button.position((windowWidth - width )/2 ,(windowHeight - 0.3*height));
-  button.mousePressed(reload);
+
 
   // Score Card 
   //paragraph = createP(' ');
@@ -169,7 +180,8 @@ function draw() {
 
 
   gameObject.displayNumbers();
-  gameObject.updateEmpty();
+
+  setTimeout( gameObject.updateEmpty() , 500);
 
   gameObject.updateScore();
 
@@ -213,14 +225,14 @@ function touchEnded() {
   X2 = mouseX ; 
   Y2 = mouseY; 
 
-   if(Y2 - Y1  >  120 )
+   if(Y2 - Y1  >  180 )
    {
     gameObject.moveDirection("down");
     console.log("Swipwe Down ");
 
    }
 
-   else if(Y1 - Y2  >  120 ) 
+   else if(Y1 - Y2  >  180 ) 
    {
     gameObject.moveDirection("up");
     console.log("Swipwe up ");
@@ -228,7 +240,7 @@ function touchEnded() {
    }
 
 
-   else if(X1 - X2  >  120 ) 
+   else if(X1 - X2  >  180 ) 
    {
     gameObject.moveDirection("left");
     console.log("Swipwe left ");
@@ -236,7 +248,7 @@ function touchEnded() {
 
    }
 
-   else if(X2 - X1  >  120 )
+   else if(X2 - X1  >  180 )
    {
     gameObject.moveDirection("right");
     console.log("Swipwe right ");
@@ -343,9 +355,21 @@ function gameClass() {
             {
               textSize(textSize1)
             }
-            
-          colorArray =   colorPicker(this.gameArray[i][j]);
-          fill(colorArray[0], colorArray[1], colorArray[2]);
+          if(this.gameArray[i][j] == 2)
+          {
+              colorArray =   colorPicker(this.gameArray[i][j]);
+              fill(colorArray[0], colorArray[1], colorArray[2]);
+          }
+          else
+          {
+            let colorArrayOld = colorPicker(this.gameArray[i][j]/2);
+            colorArray = colorPicker(this.gameArray[i][j]);
+            let c_old =   color(colorArrayOld[0],colorArrayOld[1],colorArrayOld[2]);
+            let c_new = color(colorArray[0] ,colorArray[1],colorArray[2]);
+
+            fill(lerpColor(c_old, c_new, 1));
+          }
+
           noStroke();
           rect(j*gridSpace + 0.5*offsetPixels, i*gridSpace + 0.5*offsetPixels, gridSpace- offsetPixels, gridSpace - offsetPixels,offsetPixels,offsetPixels);
           noStroke();
@@ -599,7 +623,7 @@ function gameClass() {
     if(this.MoveMadeCheck())
     {
       // console.log(" MOVE MADE - calling insert new nu");
-      this.insertNewNumber();
+        setTimeout( this.insertNewNumber(), 700); 
       nMoves++;
     }
 
