@@ -1,31 +1,49 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,200;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"> 
     <style>
+        body{
+            font-family: 'Exo', sans-serif;
+            font-weight: 500;
+        }
+        p{
+            font-family: 'Exo', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #3a44d4;
+        }
         .main-container
         {
             display: inline;
         }
         .input-container {
             width: 40%;
-            background-color: rgb(36, 35, 35);
+            background-color: rgb(0, 123, 255,0.7);
+            border: 3px #333333 solid;
             margin: 20px;
             padding-left: 10px;
             padding-top: 30px;
-            padding: 30px;
-            height: 900px;
+            padding: 10px;
+            /* height: 900px; */
         }
+
+
 
         .result-container {
             width: 40%;
-            background-color: rgb(52, 53, 49);
+            background-color: rgb(0, 123, 255,0.7);
+            border: 3px #333333 solid;
             margin: 20px;
             padding-left: 10px;
             padding-top: 30px;
-            padding: 30px;
-            height: 900px;
+            padding: 10px;
+            /* height: 900px; */
         }
 
         .input-title-text
@@ -44,6 +62,16 @@
             text-align: center;
         }
         
+        .form-control
+        {
+            background-color: #fff !important;
+            color:#333333;
+            font-weight: bolder;
+            font-size: 16px;
+            border: none;
+            transition: none;
+            border-radius: 0px;
+        }
 
         .heading {
             text-align: center;
@@ -73,7 +101,7 @@
         .container {
             width: auto;
             padding-left: 50px;
-            padding: 10px;
+            padding: 5px;
         }
 
         .result-container {
@@ -95,7 +123,7 @@
         
         .inputbox
         {
-            color:brown;
+            color:#333333;
             font-weight: bolder;
             font-size: 16px;
             padding: 5px;
@@ -146,6 +174,16 @@
     </style>
 
     <script>
+        var k;
+        function copyText(e)
+        {
+            var element = document.getElementById(e);
+            element.select();
+            element.setSelectionRange(0,999999);
+
+            document.execCommand("copy");
+            this.innerText="copied";
+        }
        function updateSlider(val,id)
         {
             document.getElementById(id).value = val;
@@ -237,17 +275,22 @@
             var lenscale = document.getElementById('lengthscale').value;
             
             var velscale = document.getElementById('velocityscale').value;
+
+            var timeStepval = document.getElementById('timestep').value;
+            var velocityval = document.getElementById('velocityinput').value;
             
-            if (lenscale > 0.0000001 )
+            var tolerance = 0.0000001;
+            if (lenscale > tolerance)
             {
                 document.getElementById('xdim-nd').value = x/lenscale;
                 document.getElementById('ydim-nd').value = y/lenscale;
                 document.getElementById('zdim-nd').value = z/lenscale;
                 updateUnits();   
 
-                document.getElementById('timescale').value = velscale/lenscale;
+                document.getElementById('actualtime').value = (timeStepval * lenscale) / velscale;
+                document.getElementById('actualvelocity').value = velscale * velocityval;
 
-                document.getElementById('pressurescale').value = 1.0 / (density * velscale * velscale);   
+                document.getElementById('pressurescale').value = (density * velscale * velscale);   
             }
             else
             {
@@ -258,6 +301,8 @@
 
                 document.getElementById('timescale').value = 0.0;
                 document.getElementById('pressurescale').value = 0.0;
+
+                alert(" Length Scale is less than Tolerance of " + tolerance);
             }
 
 
@@ -281,15 +326,24 @@
             
     
         }
+        updateResult();
 
+    </script>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
 </head>
 
 <body class="body">
-    <div class="titletag-containter row">
-        <div class= "titletag col-sm-12">
-            <p> DIMENSIONLESS PARAMETERS</p>
-        </div>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Dimensionless Parameters Computation for NSE</a>
+      </nav>
+    </div>
+
+    <div class="row col-sm-10" >
+        <p style="color: black;"><span class="math display">\[\begin{align*}
+            \tilde{x} = \frac{x}{\text{L}}, \quad \tilde{\boldsymbol{u}} = \frac{\boldsymbol{u}}{\text{U}},  \quad \tilde{\boldsymbol{u}}_b = \frac{\boldsymbol{u}_b}{\text{U}}, \quad \tilde{p} = \frac{p}{\rho \text{U}^2}, \quad \tilde{\text{I}} = \frac{\text{I} \text{U}}{\text{L}}, 
+            \text{Re} = \frac{\rho \text{U} \text{L}}{\mu_0}, \quad  \text{We} = \frac{\rho \text{U}^2 \text{L}}{\sigma}, \quad \text{Fr} = \frac{\text{U}^2}{\text{L}g}, \quad   \beta  = \frac{1}{\epsilon_{\mu} \rho \text{U}}
+           \end{align*}\]</span></p>
     </div>
 
 
@@ -303,71 +357,94 @@
             </div>
             
             <div class="container row">
-                <div class="input-title-text col-sm-6">
-                    <p> CO-ORDINATE VALUES </p>
+                <div class="input-title-text col-sm-12">
+                    <p> NON DIMENSIONAL INPUT CO-ORDINATE VALUES ( Base Co-Ordinates of Mesh ) </p>
                 </div>
             </div>
 
             <div class="container row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="xdim">X Dimension : </label>
+                    <label class="inputboxlabel"  for="xdim">X Dimension: </label>
                 </div>
                 <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="xdim" value="1.0" name="XDimensio\n" onchange="updateResult();" input>
-                </div>
-            </div>
-            <div class="container row">
-                <div class="col-sm-4">
-                    <label class="inputboxlabel" for="ydim">Y Dimension : </label>
+                    <label class="inputboxlabel"  for="ydim">Y Dimension : </label>
                 </div>
                 <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="ydim" value="1.0" name="YDimension" onchange="updateResult();"input>
+                    <label class="inputboxlabel"  for="zdim">Z Dimension: </label>
                 </div>
             </div>
-            <div class="container row">
+            <div class=" container    row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="zdim">Z Dimension : </label>
+                    <input class="inputbox" type="text" id="xdim" value="1.0" name="XDimension" onchange="updateResult();"input>
+                </div>
+                <div class="col-sm-4">
+                    <input class="inputbox" type="text" id="ydim" value="1.0" name="YDimension" onchange="updateResult();" input>
                 </div>
                 <div class="col-sm-4">
                     <input class="inputbox" type="text" id="zdim" value="1.0" name="ZDimension" onchange="updateResult();"  input>
                 </div>
             </div>
+
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> TIME/VELOCITY PARAMETERS </p>
+                </div>
+            </div>
+
+            <div class="container row">
+                <div class="col-sm-6">
+                    <label class="inputboxlabel" for="timestep">Time Step : <br> [ t&#771 ] </label>
+                </div>
+                <div class="col-sm-6">
+                    <input class="inputbox" type="text" id="timestep" value="0.01" name="timestep" onchange="updateResult();" input>
+                </div>
+            </div>
+            
+            <div class="container row">
+                <div class="col-sm-6">
+                    <label class="inputboxlabel" for="velocityinput">Input Velocity  : <br> [ <strong>u&#771</strong> ]  </label>
+                </div>
+                <div class="col-sm-6">
+                    <input class="inputbox" type="text" id="velocityinput" value="1" name="velocityinput" onchange="updateResult();" input>
+                </div>
+            </div>
+
             <div class="container row">
                 <div class="input-title-text col-sm-6">
                     <p> FLUID PARAMETERS </p>
                 </div>
             </div>
             <div class="container row">
-                <div class="col-sm-4">
-                    <label class="inputboxlabel" for="viscosity">Dynamic Viscosity : </label>
+                <div class="col-sm-6">
+                    <label class="inputboxlabel" for="viscosity">Dynamic Viscosity (Ns/m2) :  </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="inputbox" type="text" id="viscosity" value="0.0008693" name="viscosity" onchange="updateResult();" input>
                 </div>
             </div>
             <div class="container row">
-                <div class="col-sm-4">
-                    <label class="inputboxlabel" for="density">Density: </label>
+                <div class="col-sm-6">
+                    <label class="inputboxlabel" for="density">Density (Kg/m3): </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="inputbox" type="text" id="density"  value="1000" name="density" onchange="updateResult();" input>
                 </div>
             </div>
 
             <div class="container row">
-                <div class="col-sm-4">
-                    <label class="inputboxlabel" for="g">g : </label>
+                <div class="col-sm-6">
+                    <label class="inputboxlabel" for="g">g (m/s2): </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="inputbox" type="text" id="g" value="9.81" name="g" onchange="updateResult();"input>
                 </div>
             </div>
 
             <div class="container row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <label class="inputboxlabel" for="epsilon">epsilon : </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <input class="inputbox" type="text" id="epsilon" value="0.01" name="epsilon" onchange="updateResult();"input>
                 </div>
             </div>
@@ -379,24 +456,31 @@
             </div>
             <div class="container row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="lengthscale">Length-Scale : </label>
+                    <label class="inputboxlabel" for="lengthscale">Length-Scale (L): </label>
                 </div>
                 <div class="col-sm-4">
                     <input class="inputbox" type="text" id="lengthscale" value="1.0" name="lengthscale" onchange="updateResult();" input>
                 </div>
                 <div class="col-sm-4">
-                    <input type="range" min="1" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'lengthscale');" input>
+                    <input type="range" min="0.01" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'lengthscale');" input>
                 </div>
             </div>
             <div class="container row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="velocityscale">Velocity-Scale : </label>
+                    <label class="inputboxlabel" for="velocityscale">Velocity-Scale (U): </label>
                 </div>
                 <div class="col-sm-4">
                     <input class="inputbox" type="text" id="velocityscale" value="1.0" name="velocityscale"  onchange="updateResult();" input>
                 </div>
                 <div class="col-sm-4">
-                    <input type="range" min="1" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'velocityscale');" >
+                    <input type="range" min="0.001" max="100" value="1"  class="slider" oninput="updateSlider(this.value,'velocityscale');" >
+                </div>
+            </div>
+ 
+
+            <div class="container row">
+                <div class="input-title-main-text col-sm-10">
+                    <button type="button" class="btn btn-primary" onclick="updateResult();">Compute</button>
                 </div>
             </div>
         </div>
@@ -408,30 +492,46 @@
 
             <div class="container row">
                 <div class="input-title-main-text col-sm-10">
-                    <p> INPUT VALUES </p>
+                    <p> ACTUAL VALUES </p>
                 </div>
             </div>
             
             <div class="container row">
-                <div class="input-title-text col-sm-6">
-                    <p> Non Dimensionalised CO-ORDINATE VALUES(X-tilde), mesh size to be used in ParMooN</p>
+                <div class="input-title-text col-sm-12">
+                    <p> Actual Co-ordinates ( Based on Length Scale )  </p> 
+        
                 </div>
             </div>
 
-            <div class="container row">
-                <div class="col-sm-2">
-                    <label class="inputboxlabel" for="xdim"> Non Dim Co-ords: </label>
+            <div class="container row col-sm-12">
+                <div class="col-sm-3">
+                    <label class="inputboxlabel" for="xdim"> Actual Co-ords: <br>x = L * x&#771 </label>
                 </div>
                 <div class="col-sm-3">
-                    <input class="inputbox" type="text" id="xdim-nd" name="XDimension-nd"  readonly input>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="xdim-nd" name="XDimension-nd"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("xdim-nd")'>Copy</button>
+                        </div>
+                      </div>
                 </div>
                 <div class="col-sm-3">
-                    <input class="inputbox" type="text" id="ydim-nd" name="YDimension-nd"  readonly input>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="ydim-nd" name="YDimension-nd"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("ydim-nd")'>Copy</button>
+                        </div>
+                      </div>
                 </div>
                 <div class="col-sm-3">
-                    <input class="inputbox" type="text" id="zdim-nd" name="ZDimension-nd"  readonly input>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="zdim-nd" name="ZDimension-nd"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("zdim-nd")'>Copy</button>
+                        </div>
+                      </div>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-1" style="display: none;">
                     <select id="len-unit" onchange="updateUnits()">
                         <option value="m">m</option>
                         <option value="cm">cm</option>
@@ -441,26 +541,67 @@
             </div>
 
             <div class="container row">
+                <div class="input-title-text col-sm-12">
+                    <p> Mesh Scale Factors </p>
+                </div>
+            </div>
+
+            <div class="container row">
                 <div class="input-title-text col-sm-6">
-                    <p> SCALLING FACTORS </p>
+                    <p> ACTUAL TIME/VELOCITY VALUES  </p>
                 </div>
             </div>
 
             <div class="container row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="reynoldsno">Time Scalling : </label>
+                    <label class="inputboxlabel" for="timescale">Actual timeStep(s) <br> [ t = (t&#771 * L)/U]: </label>
                 </div>
-                <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="timescale"  name="timescale" readonly input>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="timescale"  name="timescale" readonly input> -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="actualtime" name="actualtime"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" id="unknkn" name="knjnjn" onclick='copyText("actualtime",this)'>Copy</button>
+                        </div>
+                      </div>
                 </div>
             </div>
 
             <div class="container row">
                 <div class="col-sm-4">
-                    <label class="inputboxlabel" for="reynoldsno">Pressure-Scaling : </label>
+                    <label class="inputboxlabel" for="timescale">Actual Velocity (m/s) : <br> [ <strong>u</strong> = U * <strong>u&#771</strong> ] </label>
                 </div>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="timescale"  name="timescale" readonly input> -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="actualvelocity" name="actualvelocity"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" id="" name="" onclick='copyText("actualvelocity",this)'>Copy</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+
+            <div class="container row">
+                <div class="input-title-text col-sm-6">
+                    <p> SCALING FACTORS  </p>
+                </div>
+            </div>
+
+
+            <div class="container row">
                 <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="pressurescale"  name="pressurescale" readonly input>
+                    <label class="inputboxlabel" for="pressurescale">Pressure-Scaling : </label>
+                </div>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="pressurescale"  name="pressurescale" readonly input> -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="pressurescale" name="pressurescale"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("pressurescale")'>Copy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -475,8 +616,16 @@
                 <div class="col-sm-4">
                     <label class="inputboxlabel" for="reynoldsno">Reynolds-No : </label>
                 </div>
-                <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="reynoldsno"  name="reynoldsno" readonly input>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="reynoldsno"  name="reynoldsno" readonly input> -->
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="reynoldsno" name="reynoldsno"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("reynoldsno")'>Copy</button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -484,8 +633,15 @@
                 <div class="col-sm-4">
                     <label class="inputboxlabel" for="froudeno">Froude-No : </label>
                 </div>
-                <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="froudeno"  name="froudeno" readonly input>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="froudeno"  name="froudeno" readonly input> -->
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="froudeno" name="froudeno"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("froudeno")'>Copy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -493,8 +649,16 @@
                 <div class="col-sm-4">
                     <label class="inputboxlabel" for="friction">SlipwithFriction : </label>
                 </div>
-                <div class="col-sm-4">
-                    <input class="inputbox" type="text" id="friction"  name="friction" readonly input>
+                <div class="col-sm-5">
+                    <!-- <input class="inputbox" type="text" id="friction"  name="friction" readonly input> -->
+
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control ans-text" id="friction" name="friction"  readonly aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary btn-cpy" type="button" onclick='copyText("friction")'>Copy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
