@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA-Shakesearean-Monkey</title>
+    <script src="src/p5.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Create 2 Divs  -->
+
+    <div id = "parentDiv">
+
+        <div id = "leftDiv">
+            <div > The Actual Phrase is  </div>
+            <div id="titlePhrase" class="actualPhrase">   </div>
+            <div id="predictedPhrase" class="actualPhrase"> </div>
+            <div id="stats" >
+                <div class="rowFlex"> 
+                    <div class="rowItem"> Generation :</div>
+                    <div class="rowItem" id="generation"> 12 </div>
+                </div>
+                <div class="rowFlex">
+                    <div class="rowItem"> Population : </div>
+                    <div class="rowItem" id="Population"> 200 </div>
+
+                </div>
+                <div class="rowFlex"> 
+                    <div class="rowItem"> Fitness Score :</div>
+                    <div class="rowItem" id="Fitness"> 0.859 </div>
+                </div>
+            </div>
+        </div>
+
+        <div id ="rightDiv">
+            <p id = "generations"> test 2</p>
+        </div>
+
+    </div>
+
+    <button type="button" onclick="noLoop()">Pause </button>
+    <button type="button" onclick="loop()">Resume</button>
+
+
+
+    
+    <script src="src/Sketch.js"></script>
+    <script src="src/Population.js"></script>
+    <!-- <script src="src/Population.js"></script> -->
+
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+
+    #parentDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+
+        #leftDiv {
+            width: auto;
+            border: 1px solid black;
+            background-color: rgb(182, 255, 255);
+            height: auto;
+            // width: 50%;
+            min-width: 450px;
+            padding:20px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            
+            .actualPhrase
+            {
+                font-size: 3rem;
+                font-weight: 700;
+
+            }
+
+
+            #stats
+            {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-around;
+                .rowFlex
+                {
+                    min-width: 200px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    margin: 5px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    justify-content: space-around;
+
+                    .rowItem
+                    {
+                        min-width: 150px;
+                    }
+                }
+            }
+            
+        }
+
+        #rightDiv {
+            width: auto;
+            border: 1px solid black;
+            // width: 50%;
+            background-color: rgb(255, 209, 144);
+            height: auto;
+
+            min-width: 450px;
+            padding:20px;
+            margin: 20px;
+
+        }
+    }
+}
+

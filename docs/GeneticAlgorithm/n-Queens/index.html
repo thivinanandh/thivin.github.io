@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA-N-Queens Problem</title>
+    <script src="src/p5.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+
+    <!-- Create 2 Divs  -->
+
+    <div id = "parentDiv">
+
+        <div id = "leftDiv">
+            <div id="Canvas"></div>
+            
+
+            <div id="stats" >
+                <div class="rowFlex"> 
+                    <div class="rowItem"> Generation :</div>
+                    <div class="rowItem" id="generation"> 0 </div>
+                </div>
+                <div class="rowFlex">
+                    <div class="rowItem"> Population : </div>
+                    <div class="rowItem" id="Population"> 200 </div>
+
+                </div>
+                <div class="rowFlex">
+                    <div class="rowItem"> Mutation %: </div>
+                    <div class="rowItem" id="Mutation"> 1 </div>
+
+                </div>
+                <div class="rowFlex"> 
+                    <div class="rowItem"> Fitness Score :</div>
+                    <div class="rowItem" id="Fitness"> 0 </div>
+                </div>
+                <div class="rowFlex2">
+                    <div> <button type="button" onclick="noLoop()">Pause</button> </div>
+                <div><button type="button" onclick="loop()">Resume</button></div>
+                <div> <button type="button" onclick="setupCommands()">Reset</button> </div>
+                
+                </div>
+            </div>
+        </div>
+
+        <div id ="rightDiv">
+            <div id="inputParameters">
+                <h2>Input Parameters for the Problem </h2>
+                <div> 
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Population</p>
+                            <input type="range" min="10" max="1000" value="400" class="slider" id="populationSlider">
+                            <input type="name" class="form-control" id="Population_1" placeholder="400">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Mutation %</p>
+                            <input type="range" min="0" max="100" value="2" class="slider" id="mutationSlider">
+                            <input type="name" class="form-control" id="Mutation_1" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <p>Dimension: </p>
+                            <input type="range" min="4" max="15" value="8" class="slider" id="nSlider">
+                            <input type="name" class="form-control" id="n_1" placeholder="8">
+                        </div>
+                        <div>
+                        <p> Cross Over Method : </p>            
+    
+    <select name="cars" id="crossover">
+        <option value="Split By Half">Split By Half</option>
+        <option value="Split Random">Split Random</option>
+        <option value="Uniform Dist">Uniform Dist</option>
+        <option value="Multiple Split">Multiple Split</option>
+      </select>
+    </div>
+                      </form>
+                     
+                </div>
+                <div><button type="button" onclick="starter()">Run</button></div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="index.js"></script>
+    <script src="src/Sketch.js"></script>
+    <script src="src/Population.js"></script>
+    <script src="src/Chess.js"></script>
+    
+    <!-- <script src="src/Population.js"></script> -->
+
+
+</body>
+</html>
