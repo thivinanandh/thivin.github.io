@@ -65,13 +65,13 @@ class Gene
             }
         }
 
-        var unique = this.genomeSequence.filter((v, i, a) => a.indexOf(v) === i);
+        // var unique = this.genomeSequence.filter((v, i, a) => a.indexOf(v) === i);
 
-        if(unique.length != this.genomeSequence.length)
-        {
-            console.log(" Errror in Mutation Domain")
-            console.log(" Orig : ", orig , " Modified : ", this.genomeSequence )
-        }
+        // if(unique.length != this.genomeSequence.length)
+        // {
+        //     console.log(" Errror in Mutation Domain")
+        //     console.log(" Orig : ", orig , " Modified : ", this.genomeSequence )
+        // }
     }
 }
 
@@ -232,17 +232,17 @@ class population
             var arr = this.population[player].genomeSequence;
             var unique = arr.filter((v, i, a) => a.indexOf(v) === i);
 
-            if(unique.length != this.genomeLength)
-            {
-                score = score - 4*(this.genomeLength - unique.length );
-                if(score < 0) score  = 1
-                
-            }
+            // if(unique.length != this.genomeLength)
+            // {
+            //     score = score - 4*(this.genomeLength - unique.length );
+            //     if(score < 0) score  = 1
+            //     console.log("Errrorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+            // }
 
-            if( (this.genomeLength - unique.length) > 2 )
-            {
-                tempCounter++;
-            }
+            // if( (this.genomeLength - unique.length) > 2 )
+            // {
+            //     tempCounter++;
+            // }
                 
             
             this.population[player].matchedChar = score;
@@ -269,7 +269,7 @@ class population
          for ( let i = 0 ; i < this.maxPopulation; i++)
              this.population[i].fitnessProbabilty = this.population[i].fitnessScore / this.sumOfFitness;
          
-             console.log(" PENALTY AWARDECD: ", tempCounter);
+            //  console.log(" PENALTY AWARDECD: ", tempCounter);
          return this.MaxFitnessGeneration ;
      }
 
