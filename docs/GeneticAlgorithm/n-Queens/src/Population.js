@@ -48,12 +48,29 @@ class Gene
 
     
     // Compute Mutation
+    // Mutation should involve swap of variables in order to avoid any repeating Index 
     mutation(value)
     {
+        let orig = this.genomeSequence.splice();
         for (let i = 0 ; i < this.geneLength; i++)
         {
             if(random(1) < value)
-                this.genomeSequence[i] = this.generateChar();
+            {
+                let indexA = floor(random(this.geneLength));
+                let indexB = floor(random(this.geneLength));
+
+                let temp = this.genomeSequence[indexA];
+                this.genomeSequence[indexA] = this.genomeSequence[indexB];
+                this.genomeSequence[indexB] = temp; 
+            }
+        }
+
+        var unique = this.genomeSequence.filter((v, i, a) => a.indexOf(v) === i);
+
+        if(unique.length != this.genomeSequence.length)
+        {
+            console.log(" Errror in Mutation Domain")
+            console.log(" Orig : ", orig , " Modified : ", this.genomeSequence )
         }
     }
 }
@@ -218,7 +235,7 @@ class population
             if(unique.length != this.genomeLength)
             {
                 score = score - 4*(this.genomeLength - unique.length );
-                if(score < 0) score  = 0
+                if(score < 0) score  = 1
                 
             }
 
@@ -356,9 +373,34 @@ class population
             }
         }
 
+        if(method == "Unique CrossOver")
+        {
+            // Get a Unique Slice from parent A
+            let startIndex = floor(random(parentA_genome.length-1));
+            let endIndex   = floor(random(startIndex+1 , parentA_genome.length));
+
+            //Get the Slice from main Array 
+            newString = parentA_genome.slice(startIndex,endIndex);
+
+            for ( var i = 0 ; i < parentB_genome.length; i++)
+            {
+                let val = parentB_genome[i];
+                if(!newString.includes(val))
+                    newString.push(val)
+            }
+
+        }
+
         let child = new Gene(this.genomeLength);
 
         child.genomeSequence = newString;
+
+        var unique = newString.filter((v, i, a) => a.indexOf(v) === i);
+        if(unique.length != newString.length){
+            console.log(" Error in the Cross Over Function ")
+            console.log(" Par A :" , parentA_genome ," Par b : ", parentB_genome, " Child : ", newString)
+        }
+        
 
         return child;
 
