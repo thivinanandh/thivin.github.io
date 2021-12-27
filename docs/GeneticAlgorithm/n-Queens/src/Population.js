@@ -278,8 +278,8 @@ class population
      {
         if(method ==1)
         {
-            score = pow(score,4);
-            if(score ==0) score  = 0.01;
+            score = pow(score,2);
+            if(score ==0) score  = 0.1;
             return score;
         }
 
