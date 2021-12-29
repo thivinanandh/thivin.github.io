@@ -4,6 +4,8 @@
 let N
 let Mutation_Rate
 let maxPopulation
+
+// FOR BOARD AND GAME
 let BoardObj;
 
 let queenImage;
@@ -58,12 +60,34 @@ function draw()
     //function to detect Hover
     BoardObj.highlightCellonHover();
 
-    
+    // myCanvas.mousePressed(BoardObj.moveTile);
+
+    updateScores();
+
     
 }
 
 
-function updateInfo()
+function mouseClicked()
 {
-   
+    BoardObj.moveTile();
+}
+
+function updateScores()
+{
+   var scoreElem = document.getElementById("score");
+   var moveElem = document.getElementById("moves");
+
+   var scoreString  = "Score      : " + BoardObj.score;
+   var moveString   = "Moves Made : " + BoardObj.movesMade;
+
+   scoreElem.innerHTML = scoreString;
+   moveElem.innerHTML = moveString;
+
+   if(BoardObj.gameWon)
+   {
+        alert("Game Won..!");
+        
+   }
+        
 }

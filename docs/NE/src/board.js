@@ -15,25 +15,50 @@ class Tile
     draw()
     {
         fill(255,244,0);
-        rect(this.xpos,this.ypos,this.width,this.height); 
+        this.rectangle = rect(this.xpos,this.ypos,this.width,this.height); 
         fill(0);
         textSize(this.textSize);
         text(this.number, this.xpos + this.width*0.4 ,(this.ypos + this.width*0.65 ))
     }
 
-    translate()
-    {
-
-    }
 
     highlight()
     {
-        console.log("here")
+        // console.log("here")
         fill(0,244,0);
         rect(this.xpos,this.ypos,this.width,this.height); 
         fill(0);
         textSize(this.textSize);
         text(this.number, this.xpos + this.width*0.4 ,(this.ypos + this.width*0.65 ))
+    }
+
+    translate(Direction)
+    {
+        let nSteps = 100;  // Deceides the speed of translation
+        let StepLength  = this.width/nSteps;
+        if(Direction =="left")
+        {
+            for(let i = 0 ; i < nSteps;i++)
+            {
+                this.xpos -= StepLength;
+            }
+        }
+        if(Direction =="right")
+        {
+            for(let i = 0 ; i < nSteps;i++)
+                this.xpos += StepLength;
+        }
+        if(Direction =="up")
+        {
+            for(let i = 0 ; i < nSteps;i++)
+                this.ypos -= StepLength;
+        }
+        if(Direction =="down")
+        {
+            for(let i = 0 ; i < nSteps;i++)
+                this.ypos += StepLength;
+        }
+        
     }
 }
 
@@ -55,11 +80,17 @@ class Board
         this.zeroIndex_x = 0;
         this.zeroIndex_y = 0;
 
-        this.tileArray = [];
+        this.tileArray = [];  // to store all the tile Objects
+
+        this.movableTiles = [];
         for( let i = 0 ; i < this.n; i++)
             this.tileArray[i] = [];
         this.initValues();
         this.createBoard();
+
+        this.score = 0;
+        this.movesMade = 0;
+        this.gameWon = false;
 
         this.drawBoard();
         this.mouseHovered;
@@ -95,6 +126,8 @@ class Board
                 }
 
             }
+
+        
     }
 
     createBoard()
@@ -106,13 +139,26 @@ class Board
 
             if(!(this.zeroIndex_x == i & this.zeroIndex_y == j))
             {
-                this.tileArray[j][i] = new Tile(j*this.cellWidth,i*this.cellWidth,this.cellWidth,
+                this.tileArray[i][j] = new Tile(j*this.cellWidth,i*this.cellWidth,this.cellWidth,
                     this.cellWidth,this.mainArray[i][j], this.textSize,this.tileColor); 
             }            
 
             // if(!(this.zeroIndex_x == i & this.zeroIndex_y == j))
             // text(this.mainArray[i][j] , j*this.cellWidth  + this.cellWidth*0.40,((i+1)*this.cellWidth ) - this.cellWidth*0.40)
         }
+
+        //Update Movable Tiles
+        this.updateMovableTiles()
+    }
+
+    //Add movable tiles
+    updateMovableTiles()
+    {
+        this.movableTiles = [];
+        if(this.zeroIndex_x + 1 < this.n) this.movableTiles.push(this.tileArray[this.zeroIndex_x+1][this.zeroIndex_y]);
+        if(this.zeroIndex_x - 1 >= 0) this.movableTiles.push(this.tileArray[this.zeroIndex_x-1][this.zeroIndex_y]);
+        if(this.zeroIndex_y + 1 < this.n) this.movableTiles.push(this.tileArray[this.zeroIndex_x][this.zeroIndex_y+1]);
+        if(this.zeroIndex_y - 1 >= 0) this.movableTiles.push(this.tileArray[this.zeroIndex_x][this.zeroIndex_y-1]);
     }
 
     drawBoard()
@@ -121,9 +167,9 @@ class Board
         for(let j = 0 ; j < this.n ;j++)
         {
  
-
+ 
             if(!(this.zeroIndex_x == i & this.zeroIndex_y == j))
-                this.tileArray[j][i].draw(); 
+                this.tileArray[i][j].draw(); 
                   
 
             // if(!(this.zeroIndex_x == i & this.zeroIndex_y == j))
@@ -153,10 +199,24 @@ class Board
             let cellIndex_y = floor(mouseX/this.cellWidth);
             let cellIndex_x = floor(mouseY/this.cellWidth);
             
-            console.log(" Cell : ", cellIndex_x, " , " , cellIndex_y);  
-            console.log("cell Number : ", this.tileArray[cellIndex_x][cellIndex_y].number)
+
             if(!(this.zeroIndex_x == cellIndex_x & this.zeroIndex_y == cellIndex_y))
-                this.tileArray[cellIndex_y][cellIndex_x].highlight();
+            {
+                let found = false;
+                for ( let i = 0 ; i < this.movableTiles.length ; i++)
+                {
+                    if(this.tileArray[cellIndex_x][cellIndex_y].number == this.movableTiles[i].number)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(found)
+                    this.tileArray[cellIndex_x][cellIndex_y].highlight();
+                
+                // console.log(" Cell : ", cellIndex_x, " , " , cellIndex_y);  
+            }
             
 
         }
@@ -169,9 +229,91 @@ class Board
        
     }
 
+    //Click to translate the tiles
+    moveTile()
+    {
+        if(isHovered &  (mouseX < this.canvasObject.width & mouseY < this.canvasObject.height))
+        {
+            let cellIndex_y = floor(mouseX/this.cellWidth);
+            let cellIndex_x = floor(mouseY/this.cellWidth);
+            
+            if(!(this.zeroIndex_x == cellIndex_x & this.zeroIndex_y == cellIndex_y))
+            {
+                let found = false;
+                for ( let i = 0 ; i < this.movableTiles.length ; i++)
+                {
+                    if(this.tileArray[cellIndex_x][cellIndex_y].number == this.movableTiles[i].number)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
 
- 
+                if(found)
+                {
+
+                    let moveDirection;
+                    let moveTag_x = 0;
+                    moveTag_x = this.zeroIndex_y - cellIndex_y; // move in X Direction
+                    let moveTag_y = 0;
+                    moveTag_y = this.zeroIndex_x - cellIndex_x; // move in Y Direction 
+                    // console.log("Cellx: ",cellIndex_x , " Cell y : " , cellIndex_y);
+                    // console.log("Zero_X: ",this.zeroIndex_x , " ZeroY : " , this.zeroIndex_y);
+                    // console.log("moveTag_x : ", moveTag_x , " moveY : ", moveTag_y);
+                    if(moveTag_x>0) moveDirection = "right";
+                    if(moveTag_x<0) moveDirection = "left";
+                    if(moveTag_y>0) moveDirection = "down";
+                    if(moveTag_y<0) moveDirection = "up";
+
+
+                    console.log(" Move Direction: ", moveDirection)
+
+                    this.tileArray[cellIndex_x][cellIndex_y].translate(moveDirection) ;
+
+                    this.mainArray[this.zeroIndex_x][this.zeroIndex_y] = this.tileArray[cellIndex_x][cellIndex_y].number;
+
+                    // interchange Zero Index Array 
+                    this.tileArray[this.zeroIndex_x][this.zeroIndex_y] = this.tileArray[cellIndex_x][cellIndex_y];
+
+                    this.tileArray[cellIndex_x][cellIndex_y] = null;
+
+                    clear();
+                    //Change Zero Index to Current Index 
+                    this.zeroIndex_x = cellIndex_x;
+                    this.zeroIndex_y =  cellIndex_y;
+
+                    //Update the movable tiles
+                    this.updateMovableTiles();
+
+                    //Update Scores
+                    this.updateScores();
+
+                    this.movesMade++;
+
+                    //Draw Board
+                    this.drawBoard();
+                }
+            }
+        }        
+    }
+
+
+    updateScores()
+    {
+        let total = 0;
+        for( let i = 0 ; i < this.n*this.n;i++)
+        {
+                if(this.mainArray[floor(i/this.n)][floor(i%this.n)] == i+1)
+                    total += 1;
+
+        }
+
+        this.score = total;
+        if(this.score >= this.n*this.n-1)
+            this.gameWon = true;
+    }
    
+ 
 
 
 }
