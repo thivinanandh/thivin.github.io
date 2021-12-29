@@ -6,16 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src = "src/p5.js"></script>
     <title>Document</title>
+    <style>
+        .slider {
+            -webkit-appearance: none;
+            width: 25%;
+            height: 15px;
+            border-radius: 5px;  
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+          }
+          
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            background: #04AA6D;
+            cursor: pointer;
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+          }
+          </style>
 </head>
 <body>
-    <p>Hello World</p>
+    <h1>Slider Puzzle <h1>
+    <p style="color:red;font-size:20px;font-weight:200">Click on a tile to move it to the blank Spot</p>
+    <div class="slidecontainer">
+        <input type="range" min="2" max="10" value="3" class="slider" id="myRange">
+        <p style="font-size:20px;font-weight:200">Value: <span id="demo"></span></p>
+      </div>
     <div id="Canvas">
     </div>
     <div>
-        <p id="score"> Score      :  0 </p>
+        <p id="score" style="color:green;font-size:20px;font-weight:400"> Score      :  0 </p>
     </div>
     <div >
-        <p id="moves"> Moves Made : 0</p>
+        <p id="moves" style="color:green;font-size:20px;font-weight:400"> Moves Made : 0</p>
     </div>
             <script src="src/board.js"></script>
     <script src="src/Sketch.js"></script>

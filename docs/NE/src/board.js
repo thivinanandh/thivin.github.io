@@ -101,19 +101,46 @@ class Board
     {
         let tempArray = [];
         for ( let i = 0 ; i < this.n*this.n ;i++)
-            tempArray[i] = i;
+            tempArray[i] = i+1;
+        
+        tempArray[this.n*this.n] = 0;
         
         
         
 
-        // Shuffle the Variables
-        for ( let i = 0 ; i < this.n*this.n; i++)    
+        // // Shuffle the Variables
+        // for ( let i = 0 ; i < this.n*this.n; i++)    
+        // {
+        //     let Swapindex = floor(random(1,this.n*this.n));
+        //     let temp = tempArray[i];
+        //     tempArray[i] =  tempArray[Swapindex];
+        //     tempArray[Swapindex] = temp;
+        // }
+        this.zeroIndex_x = this.n - 1;
+        this.zeroIndex_y = this.n - 1;
+        
+        
+        for ( let i = 0 ; i < 100; i++)
         {
-            let Swapindex = floor(random(1,this.n*this.n));
-            let temp = tempArray[i];
-            tempArray[i] =  tempArray[Swapindex];
-            tempArray[Swapindex] = temp;
+            let pickArray = [];
+
+            if(this.zeroIndex_x - 1 >= 0) pickArray.push((this.zeroIndex_x - 1)*this.n + this.zeroIndex_y);
+            if(this.zeroIndex_x + 1 < this.n) pickArray.push((this.zeroIndex_x + 1)*this.n + this.zeroIndex_y);
+            if(this.zeroIndex_y - 1 >= 0) pickArray.push((this.zeroIndex_x)*this.n + this.zeroIndex_y -1);
+            if(this.zeroIndex_y + 1 < this.n) pickArray.push((this.zeroIndex_x)*this.n + this.zeroIndex_y +1);
+
+            let randomVal = floor(random(0,pickArray.length))
+
+            //Shuffle temp[zerindex] with temp[random]
+            let temp = tempArray[randomVal];
+            tempArray[randomVal] = 0;
+            tempArray[this.zeroIndex_x*this.n + this.zeroIndex_y] = temp;
+
+            this.zeroIndex_x = floor(randomVal/this.n);
+            this.zeroIndex_y = floor(randomVal%this.n);
+
         }
+
 
         for ( let i = 0 ; i < this.n;i++)
             for(let j = 0 ; j < this.n ;j++)
@@ -126,6 +153,7 @@ class Board
                 }
 
             }
+
 
         
     }
