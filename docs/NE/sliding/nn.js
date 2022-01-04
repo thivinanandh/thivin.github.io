@@ -112,14 +112,7 @@ class Vector{
         this.values = arr.slice();
     }
 
-    mutate(mutationRate)
-    {
-        let ranVal = random(0,1);
-
-        for ( let  i = 0 ; i < this.len ; i++)
-            if(randVal < mutationRate)
-                this.values = random(-1,1);
-    }
+   
 
 }
 
@@ -234,17 +227,7 @@ class Matrix
         }
     }
 
-    mutate(mutationRate)
-    {
-        for(let i = 0 ; i < this.rows; i++)
-        {
-            for(let j = 0 ; j < this.columns; j++)
-            {
-                if(random(0,1) < mutationRate)
-                        this.values[i][j]  = random(0,1);
-            }
-        }
-    }
+    
 }
 
 //Class for layer object
