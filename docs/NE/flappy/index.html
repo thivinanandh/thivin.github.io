@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "src/p5.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        /* .slider {
+            -webkit-appearance: none;
+            width: 25%;
+            height: 15px;
+            border-radius: 5px;  
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+          }
+          
+          .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            background: #04AA6D;
+            cursor: pointer;
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+          } */
+          </style>
+</head>
+<body>
+    <h1>Flappy Bird <h1>
+    
+		<div class="d-flex flex-row flex-nowrap">
+		<div id="Canvas">
+		</div>
+		<div class="container">
+			<div class="d-flex flex-row">
+	  
+			  <div class="p-2">
+				  <div class="card" style="width: 250px; font-size: small;">
+					  <div class="card-header">
+					  Parameter
+					  </div>
+					  <ul class="list-group list-group-flush">
+					  <li class="list-group-item" >Max Score Current Generation : </li>
+					  <li class="list-group-item" >Generation  : </li>
+					  <li class="list-group-item" >Alive : </li>
+					  <li class="list-group-item" >Best in Prev Gen : </li>
+					  </ul>
+				  </div>
+		  </div>
+	  
+		  <div class="p-2">
+			<div class="card" style="width: 150px; font-size: small;">
+			  <div class="card-header">
+				Values
+			  </div>
+			  <ul class="list-group list-group-flush">
+				<li class="list-group-item" id="score"></li>
+				<li class="list-group-item" id="generation"></li>
+				<li class="list-group-item" id="alive"></li>
+				<li class="list-group-item" id="prev"></li>
+			  </ul>
+			</div>
+			</div>
+	  
+	  
+		</div>
+		</div>
+	  </div>
+
+    <div id="buttons">
+      <button onclick="pauseSimulation()" style="font-size: medium;" > Pause </button>
+      <button onclick="resumeSimulation()" style="font-size: medium;"> Resume </button>
+	  <button type="button" onclick="startSimulation()" style="font-size: medium;">Run</button>
+	  <button type="button" onclick="saveJsonFile()" style="font-size: medium;">SaveModel</button>
+      <div id="slider"></div>
+      <p style="font-size: small;"> Game Simulation Speed </p>
+    </div>
+    <div id ="rightDiv" style="font-size: small; width: 500px;" >
+      <div id="inputParameters" style="font-size: small;">
+          <h4>Input Parameters for the Problem </h4>
+          <div> 
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-4" style="font-size: small;">
+                      <p>Population</p>
+                      <input type="range" min="10" max="1000" value="200" class="slider" id="populationSlider">
+                      <input type="name" class="form-control" id="Population_1" placeholder="200">
+                  </div>
+                  <div class="form-group col-md-4" style="font-size: small;">
+                      <p>Mutation %</p>
+                      <input type="range" min="0" max="100" value="2" class="slider" id="mutationSlider">
+                      <input type="name" class="form-control" id="Mutation_1" placeholder="2">
+                  </div>
+				  <!-- <div class="form-group col-md-4" style="font-size: small;">
+					<p>Space b/w pipe </p>
+					<input type="range" min="70" max="150" value="125" class="slider" id="spaceSlider">
+					<input type="name" class="form-control" id="space_1" placeholder="125">
+				</div> -->
+              </div>
+              <!-- <div class="form-row">
+                  <div class="form-group col-md-4" style="font-size: small;">
+                      <p>Speed of Pipe: </p>
+                      <input type="range" min="2" max="16" value="8" class="slider" id="speedSlider">
+                      <input type="name" class="form-control" id="speed_1" placeholder="8">
+                  </div> -->
+                  <div class="form-group col-md-4" style="font-size: small;">
+                  <p> Cross Over: </p>            
+
+                  <select name="cars" id="crossover">
+                      <option value="False">False</option>
+                      <option value="True">True</option>
+
+                  </select>
+               </div>
+                </form>
+               
+          </div>
+          
+      </div>
+  </div>
+  
+
+
+        <!-- <script src="src/board.js"></script> -->
+    <script src="Sketch.js"></script>
+    <script src="src/nn.js"></script>
+    <script src="src/pipe.js"></script>
+    <script src="src/bird.js"></script>
+    <script src="src/ga.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
