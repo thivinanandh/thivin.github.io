@@ -91,7 +91,7 @@ function setup() {
 
 
 	input = createFileInput(handleFile);
-	MAINCANVAS.parent("Canvas");
+	myCanvas.parent("Canvas");
 
 	slider = createSlider(1, 10, 1);
 	slider.parent("slider");
