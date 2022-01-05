@@ -12,8 +12,8 @@ let populationObject;
 function setup()
 {
     Sentence = "Thivin The Great..!";
-    Mutation_Rate = 0.0085;
-    maxPopulation = 200;
+    Mutation_Rate = 0.02;
+    maxPopulation = 500;
 
 
     // Print Actual Phrase 

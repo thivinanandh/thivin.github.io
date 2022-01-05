@@ -16,10 +16,9 @@ class Pipe
     // Function to Identify the whether the bird is inside the pipe area ( its )
     hits(bird)
     {
-      let tol = 14;
-        if(bird.x + tol >= this.x && bird.x - tol <= this.x+this.width ) 
+        if(bird.x + 14 >= this.x && bird.x -14 <= this.x+this.width ) 
         {
-            if(bird.y - tol < this.top || bird.y + tol > ( height - this.bottom))
+            if(bird.y - 14 < this.top || bird.y + 14 > ( height - this.bottom))
             {
                 return true;
             }     

@@ -78,7 +78,7 @@ class population
         this.selectionMethod = "ARRAYBASED";       //  ------------------- INPUT NEEDED --------------------------//
 
         //
-        this.numofpopulationDisplay = 10;          //  ------------------- INPUT NEEDED --------------------------//
+        this.numofpopulationDisplay = 25;          //  ------------------- INPUT NEEDED --------------------------//
 
 
         this.GlobalMaxFitness = this.fitnessFunction(this.genomeLength,this.fitnessMethod);
@@ -189,8 +189,6 @@ class population
             // console.log("child: ", child.genomeSequence.join(""), " Fitness : " , child.matchedChar)
 
             return child;
-
-            
         }
      }
 
