@@ -282,10 +282,10 @@
             var tolerance = 0.0000001;
             if (lenscale > tolerance)
             {
-                document.getElementById('xdim-nd').value = x/lenscale;
-                document.getElementById('ydim-nd').value = y/lenscale;
-                document.getElementById('zdim-nd').value = z/lenscale;
-                updateUnits();   
+                document.getElementById('xdim-nd').value = x*lenscale;
+                document.getElementById('ydim-nd').value = y*lenscale;
+                document.getElementById('zdim-nd').value = z*lenscale;
+                // updateUnits();   
 
                 document.getElementById('actualtime').value = (timeStepval * lenscale) / velscale;
                 document.getElementById('actualvelocity').value = velscale * velocityval;
@@ -297,7 +297,7 @@
                 document.getElementById('xdim-nd').value = 0.0;
                 document.getElementById('ydim-nd').value = 0.0;
                 document.getElementById('zdim-nd').value = 0.0;     
-                updateUnits(); 
+                // updateUnits(); 
 
                 document.getElementById('timescale').value = 0.0;
                 document.getElementById('pressurescale').value = 0.0;
